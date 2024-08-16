@@ -1,0 +1,154 @@
+
+<!--사이즈계산기-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스포츠 브라 사이즈 계산기</title>
+    <style>
+        /* 고유한 클래스를 더욱 구체적으로 지정 */
+        .shock-calculator-container {
+            width: 100%;
+            max-width: 400px;
+            background: #333;
+            border-radius: 0px;
+            padding: 25px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .shock-calculator-container h1 {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        .shock-calculator-container label {
+            display: block;
+            margin: 15px 0;
+            font-size: 1em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* 구체적인 선택자 사용 */
+        .shock-calculator-container input.shock-input, 
+        .shock-calculator-container select.shock-select {
+            width: calc(100% - 24px);
+            padding: 18px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.9em;
+            background-color: #444;
+            color: #fff !important;
+            box-sizing: border-box;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            line-height: 1.5; /* 드롭다운에서 텍스트가 올바르게 보이도록 설정 */
+        }
+
+        /* 드롭다운 메뉴의 글씨가 보이도록 명확하게 설정 */
+        .shock-calculator-container select.shock-select {
+            background-color: #444 !important; /* 배경색을 회색으로 설정 */
+            padding-top: 25px; /* 드롭다운의 위쪽 패딩을 추가하여 세로 폭을 늘림 */
+            padding-bottom: 25px; /* 드롭다운의 아래쪽 패딩을 추가하여 세로 폭을 늘림 */
+            height: auto; /* 드롭다운의 높이 자동 조정 */
+            line-height: 1.5; /* 텍스트 높이 설정 */
+        }
+
+        /* 옵션에 대해서도 명시적으로 색상 지정 */
+        .shock-calculator-container select.shock-select option {
+            color: #fff; /* 옵션 텍스트 색상을 흰색으로 설정 */
+            background-color: #444; /* 옵션 배경색을 동일하게 설정 */
+        }
+
+        .shock-calculator-container button.shock-button {
+            width: 100%;
+            padding: 18px;
+            margin-top: 20px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .shock-calculator-container button.shock-button:hover {
+            background-color: #555;
+        }
+
+        .shock-calculator-result {
+            margin-top: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ff6f61;
+        }
+
+        .shock-calculator-explanation {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 15px;
+        }
+
+        .shock-calculator-info {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .shock-calculator-image {
+            display: block;
+            margin: 30px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 드롭다운의 포커스 및 활성 상태 스타일 추가 */
+        .shock-calculator-container select.shock-select:focus,
+        .shock-calculator-container select.shock-select:active {
+            outline: none;
+            border: 1px solid #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="shock-calculator-container">
+        <h1>쇼크업소버 사이즈 계산기</h1>
+        <div class="shock-calculator-info">
+            쇼크업소버 스포츠브라는 72개의 사이즈로 세분화 되어 있어 일반 브라와 사이즈가 조금 상이할 수 있습니다. 정확한 착용을 위해 윗가슴 둘레와 밑가슴 둘레를 측정해서 계산해 주시면 더 정확한 추천이 가능합니다.
+        </div>
+        <img src="https://mikun21.cafe24.com/images/shockbra_size.jpg" alt="쇼크업소버 치수표" class="shock-calculator-image">
+
+        <label for="shock-product">제품 선택:</label>
+        <select id="shock-product" name="shock-product" class="shock-select">
+            <option value="productA">런브라 / 뉴런브라 / 뉴디맥스 / 메가서포트</option>
+            <option value="productB">인피니티집업 / 뉴쉐이프 / 뉴클래식</option>
+        </select>
+
+        <label for="shock-underbust">밑가슴 둘레 (cm):</label>
+        <input type="number" id="shock-underbust" name="shock-underbust" class="shock-input" min="60" max="100" placeholder="얇은 브라 착용 상태에서 측정한 둘레 입력">
+
+        <label for="shock-bust">윗가슴 둘레 (cm):</label>
+        <input type="number" id="shock-bust" name="shock-bust" class="shock-input" min="70" max="130" placeholder="얇은 브라 착용 상태에서 측정한 둘레 입력">
+
+        <button class="shock-button" onclick="shockCalculateSize()">사이즈 추천</button>
+
+        <div id="shock-result" class="shock-calculator-result"></div>
+        <div id="shock-explanation" class="shock-calculator-explanation"></div>
+    </div>
+
+    <script src="https://mikun21.cafe24.com/scripts/shock-calculator.js"></script>
+
+</body>
+</html>
